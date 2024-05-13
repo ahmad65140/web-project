@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Projects - BackTheCause</title>
+  <link rel="stylesheet" href="../static/css/styles.css">
+
+  <link href="https://fonts.cdnfonts.com/css/mechsuit" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">         
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{url_for('index')}}">BackTheCause</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="{{url_for('index')}}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{{url_for('explore')}}">Explore</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('contact')}}">Contact</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categories
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Health and Medical Expenses</a></li>
+              <li><a class="dropdown-item" href="#">Education</a></li>
+              <li><a class="dropdown-item" href="#">Disability Rights</a></li>
+              <li><a class="dropdown-item" href="#">Environmental Conservation</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+
+
+
+  <main>
+    <section class="explore">
+      <div class="container">
+        <h1>Explore Projects</h1>
+        <div class="filters">
+          <div class="filter-category">
+            <label for="category">Category:</label>
+            <select id="category">
+              <option value="">All Categories</option>
+              <option value="health">Health and Medical Expenses</option>
+              <option value="e`ducation">Education</option>
+              <option value="disability">Disability Rights</option>
+              <option value="environment">Environmental Conservation</option>
+            </select>
+          </div>
+          <div class="filter-sort">
+            <label for="sort">Sort by:</label>
+            <select id="sort">
+              <option value="newest">Newest</option>
+              <option value="popular">Most Popular</option>
+              <option value="ending">Ending Soon</option>
+            </select>
+          </div>
+        </div>
+
+
+          <section class="featured-projects">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+
+
+
+<!--                                  STATIC PROJECTS FIRST ADDED!!!!!!!!
+  
+  
+        <div class="project-card">
+                <img src="../img/Smart Garden System img.jpeg" alt="Smart Garden System">
+                <div class="content">
+                  <h3>Smart Garden System</h3>
+                  <p>Introducing a revolutionary smart garden system that makes gardening effortless and efficient...</p>
+                  <div class="project-stats">
+                    <span>Goal: $75,000</span>
+                    <span>Pledged: $42,500</span>
+                    <span>Backers: 785</span>
+                    <span>Duration: 45 days</span>
+                  </div>
+                  <div class="project-progress">
+                    <div class="progress-bar" style="width: 56.67%;"></div>
+                  </div>
+                  <a href="#" class="btn btn-primary">Back This Project</a>
+                </div>
+              </div>
+          
+
+
+              <div class="project-card">
+                <img src="../img/Sustainable Fashion Line img.jpeg" alt="Sustainable Fashion Line">
+                <div class="content">
+                  <h3>Sustainable Fashion Line</h3>
+                  <p>Introducing a new sustainable fashion line that combines style and eco-friendliness while saving the planet...</p>
+                  <div class="project-stats">
+                    <span>Goal: $50,000</span>
+                    <span>Pledged: $28,000</span>
+                    <span>Backers: 620</span>
+                    <span>Duration: 30 days</span>
+                  </div>
+                  <div class="project-progress">
+                    <div class="progress-bar" style="width: 56%;"></div>
+                  </div>
+                  <a href="#" class="btn btn-primary">Back This Project</a>
+                </div>
+              </div>
+
+
+              <div class="project-card">
+                <img src="../img/wheelchair person.jpg" alt="Disabled person">
+                <div class="content">
+                  <h3>Surgery for Disabled</h3>
+                  <p>With a new hope for being able to walk again,Jack is not missing a workout and is asking for your help to do the Surgery.</p>
+                  <div class="project-stats">
+                    <span>Goal: $20,000</span>
+                    <span>Pledged: $17,530</span>
+                    <span>Backers: 43</span>
+                    <span>Duration: 23 days</span>
+                  </div>
+                  <div class="project-progress">
+                    <div class="progress-bar" style="width: 87.65%;"></div>
+                  </div>
+                  <a href="#" class="btn btn-primary">Back This Project</a>
+                </div>
+              </div>
+
+
+
+              <div class="project-card">
+                <img src="../img/grandma-pexels-photo-432722-820x500.jpeg" alt="Elderly person">
+                <div class="content">
+                  <h3>Heart Surgery for Amelia Jones</h3>  
+                  <p>Amelia Jones, a beloved grandmother, needs a heart surgery to improve her quality of life. We're raising funds to help cover the costs.</p> 
+                   <div class="project-stats">
+                    <span>Goal: $50,000</span>  
+                    <span>Pledged: $12,345</span>  
+                    <span>Backers: 37</span> 
+                    <span>Duration: 15 Days</span> 
+                   </div>
+                  <div class="project-progress">
+                    <div class="progress-bar" style="width: 24.68%;"></div>  </div>
+                  <a href="#" class="btn btn-primary">Back This Project</a>
+                </div>
+              </div>
+
+
+
+              <div class="project-card">
+                <img src="../img/msrobotics-12.jpg" alt="Student building a model">
+                <div class="content">
+                  <h3>Help Sarah Lee's Science Fair Project!</h3>
+                  <p>Sarah Lee, a passionate 10th grader at Central Valley High, is excited about robotics. To compete in the science fair, she needs your help raising funds for materials to build a line-following robot!</p>
+                  <div class="project-stats">
+                    <span>Goal: $300</span>
+                    <span>Pledged: $50</span>
+                    <span>Backers: 2</span>
+                    <span>Duration: 10 Days</span>
+                  </div>
+                  <div class="project-progress">
+                    <div class="progress-bar" style="width: 16.67%;"></div>
+                  </div>
+                  <a href="#" class="btn btn-primary">Back This Project</a>
+                </div>
+              </div> 
+              
+              
+          
+              <div class="project-card">
+                <img src="../img/graduate.avif" alt="Masters' Degree persuit">
+                <div class="content">
+                  <h3>Masters Degree Persuit</h3>
+                  <p>Chaining her dreams, Nawal is looking forward to get a masters degree in compters science ta AUB university, one of the worlds best in the field. </p>
+                  <div class="project-stats">
+                    <span>Goal: $40,000</span>
+                    <span>Pledged: $19,680</span>
+                    <span>Backers: 362</span>
+                    <span>Duration: 29 days</span>
+                  </div>
+                  <div class="project-progress">
+                    <div class="progress-bar" style="width: 49.2%;"></div>
+                  </div>
+                  <a href="#" class="btn btn-primary">Back This Project</a>
+                </div>
+              </div>
+            -->
+
+            
+            {% for project in projects %}
+            
+            <div class="project-card">
+                <img src="../static/img/{{ project.image_url }}" alt="{{ project.title }}">
+                <div class="content">
+                    <h3>{{ project.title }}</h3>
+                    <p>{{ project.about }}</p>
+                    <div class="project-stats">
+                        <span>Goal: ${{ project.goal_amount }}</span>
+                        <span>Pledged: ${{ project.pledged_amount }}</span>
+                        <span>Backers: {{ project.backer_count }}</span>
+                        <span>Duration: {{ project.duration }} days</span>
+                    </div>
+                    <div class="project-progress">
+                        {% set progress_percentage = project.pledged_amount / project.goal_amount * 100 %}
+                        <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
+                    </div>
+                    <a href="{{url_for('about', id=project.id)}}" class="btn btn-primary">Back This Project</a>
+                </div>
+            </div>
+      
+            {% endfor %}
+            
+
+          </div>
+          </section>
+
+
+
+
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-description">
+        <p class="applyMechsuit applyOrange">BackTheCause</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Is a trusted leader in online fundraising. With simple pricing and a team of Trust & Safety experts in your corner, you can raise money or make a donation with peace of mind.</p>
+        <div class="footer-logos">
+          <div ><a href="google.com" target="_blank"><img class="socialMediaLogo" src="../static/logos/x_icon.png" alt=""></a></div>
+          <div ><img class="socialMediaLogo" src="../static/logos/medium_icon.png" alt=""></div>
+          <div ><img class="socialMediaLogo" src="../static/logos/instagram_icon.png" alt=""></div>
+          <div ><img class="socialMediaLogo" src="../static/logos/facebook_icon.png" alt=""></div>
+        </div>
+      </div>
+      <div class="footer-sections">
+        <div class="footer-section">
+          <h3 class="applyMechsuit applyOrange">Features</h3>
+          <ul>
+            <li><a href="#index-welcome">Welcome</a></li>
+            <li><a href="#index-featured">Featured Projexts</a></li>
+            <li><a href="#index-categories">Popular Categories</a></li>
+            <li><a href="#index-howWorks">How it Works</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3 class="applyMechsuit applyOrange">Discover</h3>
+          <ul>
+            <li><a href="{{url_for('index')}}">Home</a></li>
+            <li><a href="{{url_for('explore')}}">Explore</a></li>
+            <li><a href="{{url_for('contact')}}">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3 class="applyMechsuit applyOrange">Categories</h3>
+          <ul>
+            <li><a href="#">Health and Medical Expenses</a></li>
+            <li><a href="#">Education</a></li>
+            <li><a href="#">Disability Rights</a></li>
+            <li><a href="#">Environmental Conservation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-copyright applyOrange">
+        <p>&copy; 2024 BackTheCause, Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+</body>
+</html>
