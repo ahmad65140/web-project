@@ -103,12 +103,23 @@ class Comments(db.Model):
 
 
 
-
+def function_show_admin_button():
+    if current_user.is_authenticated and current_user.role=='admin':
+        show_admin_button = True
+    else:
+        show_admin_button = False
+    return show_admin_button
+def function_logging_btns():
+    if current_user.is_authenticated:
+        logging_btns = True
+    else:
+        logging_btns = False
+    return logging_btns
 
 
 @app.route("/")
 def index():
-    if current_user.is_authenticated and current_user.role=='admin':
+    """ if current_user.is_authenticated and current_user.role=='admin':
         show_admin_button = True
     else:
         show_admin_button = False
@@ -116,16 +127,16 @@ def index():
     if current_user.is_authenticated:
         logging_btns = True
     else:
-        logging_btns = False
+        logging_btns = False """
 
-    projects = Projects.query.order_by(desc(Projects.pledged_amount/Projects.goal_amount)).limit(4).all()
-    return render_template('index.html',projects=projects,show_admin_button=show_admin_button,logging_btns=logging_btns)
+    projects = Projects.query.order_by(desc(Projects.pledged_amount/Projects.goal_amount)).filter(Projects.is_valid).limit(4).all()
+    return render_template('index.html',projects=projects,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
 
 @app.route("/explore")
 def explore():
-    projects = Projects.query.all()
-    return render_template('explore.html', projects=projects)
+    projects = Projects.query.filter(Projects.is_valid).all()
+    return render_template('explore.html', projects=projects,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
 
 @app.route("/contact",methods=['POST'])
@@ -156,17 +167,17 @@ def contact():
             return redirect(url_for('explore'))
         
         
-    return render_template('contact.html')
+    return render_template('contact.html',show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
 @app.route("/contact",methods=['GET'])
 def getcontact():        
-    return render_template('contact.html')
+    return render_template('contact.html',show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
 @app.route("/about/<int:id>")
 def about(id):
     project =  Projects.query.get_or_404(id)
     comments = Comments.query.filter_by(project_id=id).all()
-    return render_template('about.html',project=project,comments=comments)
+    return render_template('about.html',project=project,comments=comments,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
 @login_manager.user_loader
 def load_user(id):
@@ -181,7 +192,6 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user = Users.query.filter_by(username=username).first()
-        # if user and user.password == password:
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
             return redirect(url_for('index'))
@@ -198,7 +208,7 @@ def logout():
 @login_required
 def manage():
     if current_user.role == 'admin':
-        return render_template('manage.html',manager = current_user.username)
+        return render_template('manage.html',manager = current_user.username,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
     else:
         return 'Access Denied'
 
@@ -220,15 +230,21 @@ def signup():
 
 
 
+
+
+
+
 @app.route('/fund/<int:id>', methods=['GET','POST'])
 @login_required
 def fund(id):
-    number = float(number.strip())  # Convert number part to float, removing whitespace
+    """ number = float(number.strip())  # Convert number part to float, removing whitespace
     comment = comment.strip()
     new_comment = Comments(content=comment,project_id=id,user_id=current_user.id)
     db.session.add(new_comment)
     db.session.commit()
-    return redirect(url_for('about', id=id))
+    return redirect(url_for('about', id=id)) """
+    project =  Projects.query.get_or_404(id)
+    return render_template('fund.html',project=project,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
 
 

@@ -3,33 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - BackTheCause</title>
+  <title>Start Campaign - BackTheCause</title>
   <link rel="stylesheet" href="../static/css/styles.css">
-  <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
-  <link href="https://fonts.cdnfonts.com/css/bizantheum" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/whittle" rel="stylesheet">
+
   <link href="https://fonts.cdnfonts.com/css/mechsuit" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/protest" rel="stylesheet">
-                
-                
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">         
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-<!--   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap"> -->
-  
+
 </head>
 <body>
-
-
-  <script>
-
-
-  </script>
-
   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="{{url_for('index')}}">BackTheCause</a>
@@ -39,10 +25,10 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Home</a>
+            <a class="nav-link" aria-current="page" href="{{url_for('index')}}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('explore')}}">Explore</a>
+            <a class="nav-link active" href="{{url_for('explore')}}">Explore</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('contact')}}">Contact</a>
@@ -58,8 +44,7 @@
               <li><a class="dropdown-item" href="#">Environmental Conservation</a></li>
             </ul>
           </li>
-        
-        {% if not logging_btns %}
+          {% if not logging_btns %}
         <li class="nav-item text-right ">
           <a class="nav-link" href="{{url_for('login')}}">Login</a>
         </li>
@@ -76,136 +61,37 @@
             <a class="nav-link" href="{{url_for('manage')}}">AdminPanel</a>
         </li>
          {% endif %}
-
         </ul>
       </div>
-      
     </div>
   </nav>
 
-  
-
-
-
-
-
-
-  <main id="index-welcome">
-    <section class="hero">
-      <div class="container" >
-        <h1>Welcome to </h1><h1 class="applyOrange">BackTheCause</h1>
-        <p>Support innovative projects and make your ideas come to life.</p>
-        <a href="{{url_for('explore')}}" class="btn">Explore Projects</a>
-      </div>
-    </section>
-
-    <section class="featured" id="index-featured">
+  <main class="applyGradient">
+    <section class="start-campaign">
       <div class="container">
-        <h2>Featured Projects</h2>
-        <!-- <div class="project-grid">
-          Featured Project cards go here -->
-          <!-- <div class="project-card">
-            <img src="img/Sustainable Fashion Line img.jpeg" alt="Sustainable Fashion Line">
-            <div class="content">
-              <h3>Sustainable Fashion Line</h3>
-              <p>Introducing a new sustainable fashion line that combines style and eco-friendliness...</p>
-              <div class="project-stats">
-                <span>Goal: $50,000</span>
-                <span>Pledged: $28,000</span>
-                <span>Backers: 620</span>
-                <span>Duration: 30 days</span>
-              </div>
-              <div class="project-progress">
-                <div class="progress-bar" style="width: 56%;"></div>
-              </div>
-              <a href="#" class="btn btn-primary">Back This Project</a>
-            </div>
-          </div> 
         
-            </div>-->
-            <!-- <section class="feature-image">
-            <img src="img/graduate.avif" />
-            <img src="img/12plantindoorsmartgarden.webp" />
-            <img src="img/wheelchair person.jpg" />
-            <img src="img/Sustainable Fashion Line img.jpeg" />
-            </section> -->
-
-            <section class="feature-image">
-              {% for project in projects %}
-                <a href="{{url_for('about', id=project.id)}}"><img src="../static/img/{{project.image_url}}" /></a>
-              {% endfor %}
-            </section>
+        <h1 class="applyMechsuit">FUND a PROJECT</h1>
 
 
-          
-
-
-
-
-        
-      </div>
-    </section>
-
-    <section class="categories" id="index-categories">
-      <div class="container">
-        <h2>Popular Categories</h2>
-        <div class="category-grid">
-          <!-- Category cards go here -->
-
-          <div class="category-card">
-            <h3>Health and Medical Expenses</h3>
-            <p>Fundraising in this category supports individuals or organizations facing high medical costs, including medical treatments, surgeries, medications, or medical equipment.</p>
+        <form method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="project-name">Project Name</label>
+            <p class="applyMechsuit">{{project.title}}</p>
+            <p>{{project.description}}</p>
           </div>
 
-          <div class="category-card">
-            <h3>Education</h3>
-            <p>Funds raised in this category support educational initiatives, including scholarships, school supplies, building schools, or providing access to quality education for underprivileged individuals.
-            </p>
+          <div class="form-group">
+            <label for="project-goal">Enter Donation Amount</label>
+            <input type="number" id="project-goal" name="project-goal" min="1" required>
           </div>
 
-          <div class="category-card">
-            <h3>Disability Rights</h3>
-            <p>This category focuses on fundraising for organizations and initiatives that support individuals with disabilities, advocating for their rights, accessibility, and inclusion in society.
-            </p>
-          </div>
 
-          <div class="category-card">
-            <h3>Environmental Conservation</h3>
-            <p>Funds raised here go towards projects and organizations dedicated to preserving and protecting the environment, including conservation efforts, wildlife protection, sustainable practices, and combating climate change.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <section class="how-it-works" id="index-howWorks">
-      <div class="container">
-        <h2>How It Works</h2>
-        <div class="steps">
-          <div class="step">
-            <h3>Start Your Campaign</h3>
-            <p>Create your project campaign and set your funding goal.</p>
-          </div>
-          <div class="step">
-            <h3>Spread the Word</h3>
-            <p>Share your campaign with your network and potential backers.</p>
-          </div>
-          <div class="step">
-            <h3>Collect Funds</h3>
-            <p>Receive pledges from backers who believe in your project.</p>
-          </div>
-          <div class="step">
-            <h3>Launch Your Project</h3>
-            <p>If successful, use the funds to bring your idea to life.</p>
-          </div>
-        </div>
+          <button type="submit" class="btn btn-primary">Launch Campaign</button>
+          <button class="btn btn-primary"><a href="{{url_for('about', id=project.id)}}" class="btnAStyle">Back</a></button>
+        </form>
       </div>
     </section>
   </main>
-
-
-
 
 
 
@@ -255,9 +141,7 @@
       </div>
     </div>
   </footer>
-  
-  
 
-  <script src="../static/js/script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

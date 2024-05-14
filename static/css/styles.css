@@ -117,7 +117,7 @@ body {
     flex-direction: row;
     justify-content: center;
   }
-  .feature-image > img {
+  .feature-image >a> img {
     width: 150px;
     height: 400px;
     object-fit: cover;
@@ -127,7 +127,7 @@ body {
     transition: width 0.5s ease-in-out;
     border: 2px solid #ff6347;
   }
-  .feature-image > img:hover {
+  .feature-image >a>img:hover {
     width: 300px;
   }
 
@@ -296,6 +296,14 @@ body {
   }
   
   /* Explore Page */
+  .filters{
+    display: flex;    
+  }
+  .filters > div{
+    padding-left: 15px;
+  }
+
+
   /* ... */
   
   /* Project Details Page */
@@ -418,6 +426,7 @@ body {
   
   .btn-primary {
     background-color: #ff6347 !important;
+    border-color: #ff6347 !important;
   }
   
   .btn-secondary {
@@ -474,7 +483,7 @@ body {
   }
   
   .footer-sections {
-    flex: 2;  /* Allocate more space for footer sections */
+    flex: 2; 
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -517,7 +526,7 @@ body {
   }
   
   /* Media query */
-  @media screen and (max-width: 760px) {
+  @media screen and (max-width: 880px) {
     .footer-container {
       flex-direction: column;
       align-items: center;
@@ -537,23 +546,32 @@ body {
     .footer-copyright{
       flex: 1;
     }
+    .start-campaign{
+      max-width: 100%;
+    }
 
 }
     
-  
+.btnAStyle{
+  text-decoration: none !important;
+  color: white !important;
+}
 
 
 
 
-
-
-
-
-
-
-
-
+.aboutImg{
+  width: 75%;
+}
+.aboutImgSize{
+  width: 100%;
+  text-align: center;
+}
 img:hover{
   transform: scale(1.4);
   transition:transform 0.5s ease-in-out ;
+}
+.no-hover-effect {
+  transform: none !important;
+  transition: none !important;
 }

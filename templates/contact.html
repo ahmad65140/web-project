@@ -44,6 +44,23 @@
               <li><a class="dropdown-item" href="#">Environmental Conservation</a></li>
             </ul>
           </li>
+          {% if not logging_btns %}
+        <li class="nav-item text-right ">
+          <a class="nav-link" href="{{url_for('login')}}">Login</a>
+        </li>
+        {% endif %}
+
+        {% if logging_btns %}
+          <li class="nav-item text-right ">
+            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          </li>
+        {% endif %}
+
+        {% if show_admin_button %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{url_for('manage')}}">AdminPanel</a>
+        </li>
+         {% endif %}
         </ul>
       </div>
     </div>
@@ -115,10 +132,10 @@
         <div class="footer-section">
           <h3 class="applyMechsuit applyOrange">Features</h3>
           <ul>
-            <li><a href="#index-welcome">Welcome</a></li>
-            <li><a href="#index-featured">Featured Projexts</a></li>
-            <li><a href="#index-categories">Popular Categories</a></li>
-            <li><a href="#index-howWorks">How it Works</a></li>
+            <li><a href="/#index-welcome">Welcome</a></li>
+            <li><a href="/#index-featured">Featured Projexts</a></li>
+            <li><a href="/#index-categories">Popular Categories</a></li>
+            <li><a href="/#index-howWorks">How it Works</a></li>
           </ul>
         </div>
         <div class="footer-section">
