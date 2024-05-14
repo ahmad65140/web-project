@@ -13,6 +13,7 @@ from fastapi.encoders import jsonable_encoder
 
 import os
 
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1982Aa2003@localhost/crowdfunding_db'
@@ -26,7 +27,7 @@ def allowed_file(filename):
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
-
+import geminiAPI
 def create_database(app):
     with app.app_context():
         db.create_all()
