@@ -3,9 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import desc
-from datetime import datetime,timezone
+from datetime import datetime, timedelta, timezone
 from werkzeug.utils import secure_filename
 import uuid as uuid
+import decimal
 
 
 from fastapi.encoders import jsonable_encoder
@@ -117,9 +118,42 @@ def function_logging_btns():
         logging_btns = False
     return logging_btns
 
+def update_project_validity():
+
+    """ projects = Projects.query.all()
+    current_time_utc = datetime.now(timezone.utc)
+    project_end_date = project.date_added + timedelta(days=project.duration)
+
+    for project in projects:
+        project_end_date = project.date_added + timedelta(days=project.duration)
+        if current_time_utc > project_end_date or project.pledged_amount >= project.goal_amount:
+            project.is_valid = False
+
+    db.session.commit() """
+    projects = Projects.query.all()
+
+    # Get the current time in UTC
+    current_time_utc = datetime.now(timezone.utc)
+    
+
+    # Iterate over each project and update its validity
+    for project in projects:
+        # Calculate the project's end date
+        project_end_date = project.date_added + timedelta(days=project.duration)
+
+        # Check if the project's end date has passed or it has reached its goal
+        if current_time_utc > project_end_date or project.pledged_amount >= project.goal_amount:
+            project.is_valid = False
+
+    # Commit the changes to the database
+    db.session.commit()
+
+
+
 
 @app.route("/")
 def index():
+    update_project_validity()
     """ if current_user.is_authenticated and current_user.role=='admin':
         show_admin_button = True
     else:
@@ -129,6 +163,7 @@ def index():
         logging_btns = True
     else:
         logging_btns = False """
+
 
     projects = Projects.query.order_by(desc(Projects.pledged_amount/Projects.goal_amount)).filter(Projects.is_valid).limit(4).all()
     return render_template('index.html',projects=projects,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
@@ -238,20 +273,28 @@ def signup():
 @app.route('/fund/<int:id>', methods=['GET','POST'])
 @login_required
 def fund(id):
-    """ number = float(number.strip())  # Convert number part to float, removing whitespace
-    comment = comment.strip()
-    new_comment = Comments(content=comment,project_id=id,user_id=current_user.id)
-    db.session.add(new_comment)
-    db.session.commit()
-    return redirect(url_for('about', id=id)) """
+    if request.method=='POST' :
+        amount = request.form.get('project-donation', '')
+        comment = request.form.get('project-comment', '') 
+
+        project =  Projects.query.get_or_404(id)
+        comments = Comments.query.filter_by(project_id=id).all()
+
+        amount = decimal.Decimal(amount)
+        project.pledged_amount += amount
+        project.backer_count += 1
+
+        if comment:
+            new_comment = Comments(content=comment, user_id=current_user.id, project_id=project.id)
+            db.session.add(new_comment)
+        db.session.commit()
+
+        flash('Donation successful!', 'success')
+        return render_template('about.html',project=project,comments=comments,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
+
+    comments = Comments.query.filter_by(project_id=id).all()
     project =  Projects.query.get_or_404(id)
-    return render_template('fund.html',project=project,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
-
-
-
-
-
-
+    return render_template('fund.html',project=project,comments=comments,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
 
 

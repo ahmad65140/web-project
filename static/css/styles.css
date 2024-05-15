@@ -333,7 +333,7 @@ body {
     margin-bottom: 20px;
     display: flex;
     gap: 20px;
-  font-size: 18px;
+    font-size: 18px;
     color: #777;
     
   }
@@ -345,6 +345,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 40px;
+    border: 1px solid #ff6347 !important;
   }
   
   .progress-bar {

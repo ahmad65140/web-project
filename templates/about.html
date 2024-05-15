@@ -89,46 +89,8 @@
                 {% set progress_percentage = project.pledged_amount / project.goal_amount * 100 %}
                 <div class="progress-bar" style="width: {{ progress_percentage }}%;"></div>
               </div>
-              <!-- <a href="#" class="btn btn-primary" >Back This Project</a> -->
-              <!-- <button id="submitBtn" class="btn btn-primary" data-project-id="{{ project.id }}">Back This Project</button> -->
               <a href="{{url_for('fund', id=project.id)}}" class="btn btn-primary">Donate Now</a>
-              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-              <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-              <script>
-                $(document).ready(function() {
-    $("#submitBtn").click(function() {
 
-      const number = prompt("Enter a number:");
-      const comment = prompt("Enter a comment (optional):");
-  
-      if (isNaN(number)) {
-        alert("Please enter a valid number.");
-        return; 
-      }
-  
-      projectId= $(this).data('project-id');
-      alert(projectId);
-      
-      $.ajax({
-        url: "/fund/projectId",
-        type: "POST",
-        data: {
-          comment: comment || "",
-          number: number,
-        },
-        success: function(response) {
-          console.log("Data sent successfully:", response);
-          alert("Your number and comment (if provided) have been submitted!");
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.error("Error submitting data:", textStatus, errorThrown);
-          alert("There was an error submitting your data. Please try again.");
-        }
-      });
-    });
-  });
-  
-              </script>
             </div>
           </div>
           <div class="project-content">
