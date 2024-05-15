@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manage - BackTheCause</title>
-  <link rel="stylesheet" href="../static/css/styles.css">
+  <link rel="stylesheet" href="/static/css/styles.css">
   <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
   <link href="https://fonts.cdnfonts.com/css/bizantheum" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/whittle" rel="stylesheet">
@@ -92,58 +92,61 @@
 
     <section class="categories" id="index-categories">
       <div class="container mt-3">
-        <h1>Manage Users</h1>
-        <form id="boouserForm">
+        <h1>Edit User</h1>
+        <form id="userForm">
             <input type="hidden" id="userid" value="{{userid}}">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <label for="email">Author</label>
-                <input type="text" class="form-control" id="author" name="author" required>
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="genre">Genre</label>
-                <input type="text" class="form-control" id="genre" name="genre" required>
+                <label for="role">Role</label>
+                <select id="role" name="role" required>
+                  <option value="admin">Admin</option>
+                  <option value="user">User</option>
+                </select>
             </div>
-            <button class="btn btn-primary">Update Book</button>
-            <a href="/" class="btn btn-danger">Cancel</a>
+            <button class="btn btn-primary">Update User</button>
+            <a href="/manage" class="btn btn-danger">Cancel</a>
         </form>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
 
             $(document).ready(function () {
-                var bookId = $('#bookid').val();
-                fetchBookDetails(bookId);
+                var userId = $('#userid').val();
+                fetchUserDetails(userId);
 
-                function fetchBookDetails(bookId) {
-                    fetch('/api/books/' + bookId) // Replace with your API endpoint URL
+                function fetchUserDetails(userId) {
+                    fetch('/api/users/' + userId) // Replace with your API endpoint URL
                         .then(response => response.json())
-                        .then(book => {
+                        .then(user => {
                             // Populate the form fields with book details
-                            $('#title').val(book.title);
-                            $('#author').val(book.author);
-                            $('#genre').val(book.genre);
+                            $('#username').val(user.username);
+                            $('#email').val(user.email);
+                            $('#role').val(user.role);
                         })
                         .catch(error => {
-                            console.error('Error fetching book details:', error);
+                            console.error('Error fetching user details:', error);
                         });
                 }
 
-                $('#bookForm').submit(function(event) {
+                $('#userForm').submit(function(event) {
                     event.preventDefault(); // Prevent default fo
-                    submitBookForm();
+                    submitUserForm();
                 });
 
-                function submitBookForm() {
+                function submitUserForm() {
                     var formData = {
-                        title: $('#title').val(),
-                        author: $('#author').val(),
-                        genre: $('#genre').val()
+                        username: $('#username').val(),
+                        email: $('#email').val(),
+                        role: $('#role').val()
                     };
 
-                    fetch('/api/books/' + bookId, {
+                    fetch('/api/users/' + userId, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -152,13 +155,13 @@
                     })
                         .then(response => response.json())
                         .then(data => {
-                            console.log('Book updated successfully:', data);
+                            console.log('User updated successfully:', data);
                             // Perform any additional actions after successful submission
                             // For example, redirect to another page
-                            window.location.href = '/';
+                            window.location.href = '/manage';
                         })
                         .catch(error => {
-                            console.error('Error updating book:', error);
+                            console.error('Error updating user:', error);
                         });
                 }
             });

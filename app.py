@@ -120,32 +120,17 @@ def function_logging_btns():
 
 def update_project_validity():
 
-    """ projects = Projects.query.all()
-    current_time_utc = datetime.now(timezone.utc)
-    project_end_date = project.date_added + timedelta(days=project.duration)
-
-    for project in projects:
-        project_end_date = project.date_added + timedelta(days=project.duration)
-        if current_time_utc > project_end_date or project.pledged_amount >= project.goal_amount:
-            project.is_valid = False
-
-    db.session.commit() """
     projects = Projects.query.all()
 
     # Get the current time in UTC
-    current_time_utc = datetime.now(timezone.utc)
+    current_time_utc = datetime.utcnow()
     
 
-    # Iterate over each project and update its validity
     for project in projects:
-        # Calculate the project's end date
         project_end_date = project.date_added + timedelta(days=project.duration)
-
-        # Check if the project's end date has passed or it has reached its goal
         if current_time_utc > project_end_date or project.pledged_amount >= project.goal_amount:
             project.is_valid = False
 
-    # Commit the changes to the database
     db.session.commit()
 
 
@@ -337,6 +322,15 @@ def delete_user(id):
 def update_user(id):
      return render_template('edit_user.html', userid=id)
 
+@app.route('/api/users/<int:id>', methods=['PUT'])
+def updateuser(id):
+    user = Users.query.get_or_404(id)
+    user.username = request.json['username']
+    user.email = request.json['email']
+    user.role = request.json['role']
+    db.session.commit()
+    return jsonify({'message' : 'update success'}), 200
+
 
 
 
@@ -361,6 +355,16 @@ def delete_project(id):
 def update_project(id):
      return render_template('edit_project.html', projectid=id)
 
+@app.route('/api/projects/<int:id>', methods=['PUT'])
+def updateproject(id):
+    project = Projects.query.get_or_404(id)
+    project.title = request.json['title']
+    project.category = request.json['category']
+    project.description = request.json['description']
+    project.goal = request.json['goal']
+    project.duration = request.json['duration']
+    db.session.commit()
+    return jsonify({'message' : 'update success'}), 200
 
 
 
