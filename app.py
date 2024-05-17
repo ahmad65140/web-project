@@ -215,7 +215,7 @@ def login():
         user = Users.query.filter_by(username=username).first()
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
-            return redirect(url_for('index'))
+            redirect(url_for('index'))
         
     return render_template('login.html')
 
@@ -261,10 +261,8 @@ def fund(id):
     if request.method=='POST' :
         amount = request.form.get('project-donation', '')
         comment = request.form.get('project-comment', '') 
-
+        
         project =  Projects.query.get_or_404(id)
-        comments = Comments.query.filter_by(project_id=id).all()
-
         amount = decimal.Decimal(amount)
         project.pledged_amount += amount
         project.backer_count += 1
@@ -274,8 +272,11 @@ def fund(id):
             db.session.add(new_comment)
         db.session.commit()
 
-        flash('Donation successful!', 'success')
-        return render_template('about.html',project=project,comments=comments,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
+        
+        comments = Comments.query.filter_by(project_id=id).all()
+
+        """ return render_template('about.html',project=project,comments=comments,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns()) """
+        return redirect(url_for('about',id=id))
 
     comments = Comments.query.filter_by(project_id=id).all()
     project =  Projects.query.get_or_404(id)
