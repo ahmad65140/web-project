@@ -368,7 +368,6 @@ def fund(id):
         
         comments = Comments.query.filter_by(project_id=id).all()
 
-        """ return render_template('about.html',project=project,comments=comments,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns()) """
         return redirect(url_for('about',id=id))
 
     comments = Comments.query.filter_by(project_id=id).all()
