@@ -20,7 +20,7 @@ description = ""  # Initialize description variable
 
 
 
-@app.route("/api/geminiAPI/<string:discription>", methods=["GET","POST"])
+""" @app.route("/api/geminiAPI/<string:discription>", methods=["GET","POST"]) """
 def chat(discription):
     message="summarize this in one sentence : "+discription
 
@@ -35,7 +35,8 @@ def chat(discription):
 
     try:
         response = chat_session.send_message(chat_session.history + [message], stream=False)
-        return jsonify(success=True, message=response.text)
+        """ return jsonify(success=True, message=response.text) """
+        return response.text
     except Exception as e:
         print(f"Error sending message: {e}")
         return jsonify(success=False, message="Error processing message")

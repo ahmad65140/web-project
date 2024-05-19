@@ -1,0 +1,25 @@
+contact backup only photo     
+   """ project_name = request.form.get('project-name', '')
+        category = request.form.get('project-category', '')
+        description = request.form.get('project-description', '')
+        goal_amount = request.form.get('project-goal', '')
+        duration = request.form.get('project-duration', '')
+        image_file = request.files.get('project-image')
+        video_file = request.files.get('project-video')
+
+        if request.files['project-image']:
+            image_file = request.files['project-image']
+            pic_filename = secure_filename(image_file.filename)
+            pic_name = str(uuid.uuid1())+"-"+pic_filename
+            saver = request.files['project-image']
+            image_file = pic_name
+
+
+
+            new_project = Projects(title=project_name, category=category, description=description, goal_amount=goal_amount, duration=duration,image_url=image_file,user_id=current_user.id)
+            db.session.add(new_project)
+            db.session.commit()
+            saver.save(os.path.join(app.config['UPLOAD_FOLDER'], pic_name))
+
+            flash('Project added successfully', 'success')
+            return redirect(url_for('explore')) """

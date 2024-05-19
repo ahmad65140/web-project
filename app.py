@@ -29,7 +29,8 @@ def allowed_file(filename):
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
-import geminiAPI
+
+from geminiAPI import *
 def create_database(app):
     with app.app_context():
         db.create_all()
@@ -230,6 +231,8 @@ def contact():
         duration = request.form.get('project-duration', '')
         image_file = request.files['project-image']
         video_file = request.files['project-video']
+        
+        about = chat(description)
 
         # Handle image upload
         if image_file:
@@ -248,38 +251,18 @@ def contact():
             saver = request.files['project-video']
             video_file = video_name
             saver.save(os.path.join(app.config['VIDEO_UPLOAD_FOLDER'], video_name))
+        
+        if not request.files['project-video']:
+            video_file = ""
 
         # Create and save project with image and video URLs (if uploaded)
-        new_project = Projects(title=project_name, category=category, description=description, goal_amount=goal_amount, duration=duration, image_url=image_file, video_url=video_file, user_id=current_user.id)
+        new_project = Projects(title=project_name, category=category, description=description,about=about, goal_amount=goal_amount, duration=duration, image_url=image_file, video_url=video_file, user_id=current_user.id)
         db.session.add(new_project)
         db.session.commit()
 
         flash('Project added successfully', 'success')
         return redirect(url_for('explore'))
-        """ project_name = request.form.get('project-name', '')
-        category = request.form.get('project-category', '')
-        description = request.form.get('project-description', '')
-        goal_amount = request.form.get('project-goal', '')
-        duration = request.form.get('project-duration', '')
-        image_file = request.files.get('project-image')
-        video_file = request.files.get('project-video')
 
-        if request.files['project-image']:
-            image_file = request.files['project-image']
-            pic_filename = secure_filename(image_file.filename)
-            pic_name = str(uuid.uuid1())+"-"+pic_filename
-            saver = request.files['project-image']
-            image_file = pic_name
-
-
-
-            new_project = Projects(title=project_name, category=category, description=description, goal_amount=goal_amount, duration=duration,image_url=image_file,user_id=current_user.id)
-            db.session.add(new_project)
-            db.session.commit()
-            saver.save(os.path.join(app.config['UPLOAD_FOLDER'], pic_name))
-
-            flash('Project added successfully', 'success')
-            return redirect(url_for('explore')) """
           
     return render_template('contact.html',show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
@@ -308,6 +291,7 @@ def login():
         user = Users.query.filter_by(username=username).first()
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
+            
             redirect(url_for('index'))
         
     return render_template('login.html')

@@ -81,9 +81,10 @@
               <h1>{{ project.title }}</h1>
               <p>&nbsp;&nbsp;&nbsp;&nbsp;{{ project.about }}</p>
               <div class="project-stats">
-                <span class="goal">Goal: ${{ project.goal_amount }}</span>
-                <span class="pledged">Pledged: ${{ project.pledged_amount }}</span>
-                <span class="backers">Backers: {{ project.backer_count }}</span>
+                <span>Goal: ${{ project.goal_amount }}</span>
+                <span>Pledged: ${{ project.pledged_amount }}</span>
+                <span>Backers: {{ project.backer_count }}</span>
+                <span>Duration: {{ project.duration }} days</span>
               </div>
               <div class="project-progress">
                 {% set progress_percentage = project.pledged_amount / project.goal_amount * 100 %}
