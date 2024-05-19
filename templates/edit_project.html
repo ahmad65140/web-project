@@ -38,10 +38,10 @@
               Categories
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Health and Medical Expenses</a></li>
-              <li><a class="dropdown-item" href="#">Education</a></li>
-              <li><a class="dropdown-item" href="#">Disability Rights</a></li>
-              <li><a class="dropdown-item" href="#">Environmental Conservation</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='health')}}">Health and Medical Expenses</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='education')}}">Education</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='disability')}}">Disability Rights</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='environment')}}">Environmental Conservation</a></li>
             </ul>
           </li>
           {% if not logging_btns %}
@@ -87,8 +87,12 @@
             </select>
           </div>
           <div class="form-group">
+            <label for="description">Project About</label>
+            <textarea id="about" name="about" rows="5" required></textarea>
+          </div>
+          <div class="form-group">
             <label for="description">Project Description</label>
-            <textarea id="description" name="description" rows="5" required></textarea>
+            <textarea id="description" name="description" rows="15" required></textarea>
           </div>
           <div class="form-group">
             <label for="goal">Funding Goal</label>
@@ -100,7 +104,7 @@
           </div>
           <div class="form-group">
             <label for="duration">Project Validity</label>
-            <input type="checkbox" id="cb1"value="phone" checked> Project Validity
+            <input type="checkbox" id="is_valid" name="is_valid" value="true">
           </div>
 
           <button class="btn btn-primary">Update Project</button>
@@ -117,12 +121,16 @@
                     fetch('/api/projects/' + projectId) // Replace with your API endpoint URL
                         .then(response => response.json())
                         .then(project => {
-                            // Populate the form fields with book details
+                            // Populate the form fields with project details
                             $('#title').val(project.title);
                             $('#category').val(project.category);
+                            $('#about').val(project.about);
                             $('#description').val(project.description);
                             $('#goal').val(project.goal_amount);
                             $('#duration').val(project.duration);
+                            $('#is_valid').prop('checked', project.is_valid);
+                            
+                            
 
                         })
                         .catch(error => {
@@ -139,10 +147,16 @@
                     var formData = {
                         title: $('#title').val(),
                         category: $('#category').val(),
+                        about: $('#about').val(),
                         description: $('#description').val(),
                         goal_amount: $('#goal').val(),
-                        duration: $('#duration').val()
+                        duration: $('#duration').val(),
+                        is_valid: $('#is_valid').is(':checked')
                     };
+                    if (!$('#is_valid').is(':checked')) {
+                        formData.is_valid = false;
+                      }
+                    else formData.is_valid = true;
 
                     fetch('/api/projects/' + projectId, {
                         method: 'PUT',
@@ -172,7 +186,7 @@
 
 
 
-  <footer class="footer">
+<!--   <footer class="footer">
     <div class="footer-container">
       <div class="footer-description">
         <p class="applyMechsuit applyOrange">BackTheCause</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Is a trusted leader in online fundraising. With simple pricing and a team of Trust & Safety experts in your corner, you can raise money or make a donation with peace of mind.</p>
@@ -215,8 +229,7 @@
         <p>&copy; 2024 BackTheCause, Inc. All rights reserved.</p>
       </div>
     </div>
-  </footer>
+  </footer> -->
 
-  <script src="script.js"></script>
 </body>
 </html>

@@ -38,10 +38,10 @@
               Categories
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Health and Medical Expenses</a></li>
-              <li><a class="dropdown-item" href="#">Education</a></li>
-              <li><a class="dropdown-item" href="#">Disability Rights</a></li>
-              <li><a class="dropdown-item" href="#">Environmental Conservation</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='health')}}">Health and Medical Expenses</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='education')}}">Education</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='disability')}}">Disability Rights</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='environment')}}">Environmental Conservation</a></li>
             </ul>
           </li>
           {% if not logging_btns %}
@@ -133,10 +133,10 @@
         <div class="footer-section">
           <h3 class="applyMechsuit applyOrange">Categories</h3>
           <ul>
-            <li><a href="#">Health and Medical Expenses</a></li>
-            <li><a href="#">Education</a></li>
-            <li><a href="#">Disability Rights</a></li>
-            <li><a href="#">Environmental Conservation</a></li>
+            <li><a href="{{url_for('explore',criteria='health',sort='newest') }}">Health and Medical Expenses</a></li>
+            <li><a href="{{url_for('explore',criteria='education',sort='newest') }}">Education</a></li>
+            <li><a href="{{url_for('explore',criteria='disability',sort='newest') }}">Disability Rights</a></li>
+            <li><a href="{{url_for('explore',criteria='environment',sort='newest') }}">Environmental Conservation</a></li>
           </ul>
         </div>
       </div>

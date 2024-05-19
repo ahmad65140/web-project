@@ -2,7 +2,7 @@ from flask import Flask,render_template,redirect,request,url_for,flash,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import desc
+from sqlalchemy import desc,asc
 from datetime import datetime, timedelta, timezone
 from werkzeug.utils import secure_filename
 import uuid as uuid
@@ -20,6 +20,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1982Aa2003@localhost/crowdfunding_db'
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Recommended for performance
 app.config['UPLOAD_FOLDER'] = 'static/img'
+app.config['VIDEO_UPLOAD_FOLDER'] = 'static/vid'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mov'}
 app.config['SECRET_KEY'] = "secret-secret-key"
 def allowed_file(filename):
@@ -40,7 +41,7 @@ class Users(UserMixin,db.Model):
     role = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False) 
-    comments = db.relationship('Comments', backref='auhtor') 
+    comments = db.relationship('Comments', backref='author') 
     def user_to_dict(self):
         return {
             "id": self.id,
@@ -154,9 +155,67 @@ def index():
     return render_template('index.html',projects=projects,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
 
-@app.route("/explore")
+""" @app.route("/explore")
 def explore():
     projects = Projects.query.filter(Projects.is_valid).all()
+    return render_template('explore.html', projects=projects,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
+ """
+
+
+""" @app.route("/explore/",defaults={'criteria':'', 'sort':''})
+@app.route("/explore/<string:criteria>",defaults={'sort':''})
+@app.route("/explore/<string:criteria>/<string:sort>")
+def explore(criteria="",sort=""):
+
+    if criteria == 'all':
+        query = Projects.query.filter(Projects.is_valid)
+    elif criteria:
+        query = query.filter(Projects.category == criteria)
+    
+    if sort == 'newest':
+        query = query.order_by(desc(Projects.date_added))
+    elif sort == 'ending':
+        query = query.order_by(asc(Projects.date_added))
+    elif sort == 'popular':
+        query = query.order_by(desc(Projects.pledged_amount / Projects.goal_amount))
+    
+    projects = query.all() """
+    
+""" if criteria:
+    projects = Projects.query.filter(Projects.is_valid).filter(Projects.category==criteria).all()
+else: 
+    projects = Projects.query.filter(Projects.is_valid).all()
+
+if sort=='newest':
+    projects = projects.order_by(desc(Projects.date_added))
+elif sort=='ending':
+    projects = projects.order_by(asc(Projects.date_added))
+elif sort=='popular':
+    projects = projects.order_by(desc(Projects.pledged_amount/Projects.goal_amount))"""
+""" return url_for('explore',criteria='',sort='') """
+""" return render_template('explore.html', projects=projects,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns()) """
+
+
+
+@app.route("/explore/",defaults={'criteria':'all', 'sort':''})
+@app.route("/explore/<string:criteria>",defaults={'sort':''})
+@app.route("/explore/<string:criteria>/<string:sort>")
+def explore(criteria="all",sort=""):
+
+    query = Projects.query.filter(Projects.is_valid)
+    
+    if criteria != 'all':
+        query = query.filter(Projects.category == criteria)
+    
+    if sort == 'newest':
+        query = query.order_by(desc(Projects.date_added))
+    elif sort == 'ending':
+        query = query.order_by(asc(Projects.date_added))
+    elif sort == 'popular':
+        query = query.order_by(desc(Projects.pledged_amount / Projects.goal_amount))
+    
+    projects = query.all()
+    
     return render_template('explore.html', projects=projects,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
 
@@ -165,6 +224,39 @@ def explore():
 def contact():
     if request.method=='POST' :
         project_name = request.form.get('project-name', '')
+        category = request.form.get('project-category', '')
+        description = request.form.get('project-description', '')
+        goal_amount = request.form.get('project-goal', '')
+        duration = request.form.get('project-duration', '')
+        image_file = request.files['project-image']
+        video_file = request.files['project-video']
+
+        # Handle image upload
+        if image_file:
+            image_file = request.files['project-image']
+            pic_filename = secure_filename(image_file.filename)
+            pic_name = str(uuid.uuid1()) + "-" + pic_filename
+            saver = request.files['project-image']
+            image_file = pic_name
+            saver.save(os.path.join(app.config['UPLOAD_FOLDER'], pic_name))
+
+        # Handle video upload (add checks for allowed video formats)
+        if video_file:
+            video_file = request.files['project-video']
+            video_filename = secure_filename(video_file.filename)
+            video_name = str(uuid.uuid1()) + "-" + video_filename
+            saver = request.files['project-video']
+            video_file = video_name
+            saver.save(os.path.join(app.config['VIDEO_UPLOAD_FOLDER'], video_name))
+
+        # Create and save project with image and video URLs (if uploaded)
+        new_project = Projects(title=project_name, category=category, description=description, goal_amount=goal_amount, duration=duration, image_url=image_file, video_url=video_file, user_id=current_user.id)
+        db.session.add(new_project)
+        db.session.commit()
+
+        flash('Project added successfully', 'success')
+        return redirect(url_for('explore'))
+        """ project_name = request.form.get('project-name', '')
         category = request.form.get('project-category', '')
         description = request.form.get('project-description', '')
         goal_amount = request.form.get('project-goal', '')
@@ -179,15 +271,16 @@ def contact():
             saver = request.files['project-image']
             image_file = pic_name
 
+
+
             new_project = Projects(title=project_name, category=category, description=description, goal_amount=goal_amount, duration=duration,image_url=image_file,user_id=current_user.id)
             db.session.add(new_project)
             db.session.commit()
             saver.save(os.path.join(app.config['UPLOAD_FOLDER'], pic_name))
 
             flash('Project added successfully', 'success')
-            return redirect(url_for('explore'))
-        
-        
+            return redirect(url_for('explore')) """
+          
     return render_template('contact.html',show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
 
 @app.route("/contact",methods=['GET'])
@@ -358,12 +451,19 @@ def update_project(id):
 
 @app.route('/api/projects/<int:id>', methods=['PUT'])
 def updateproject(id):
+    """ is_valid = request.form.get('is_valid')
+    if is_valid is None:
+        is_valid = False
+    else:
+        is_valid = is_valid.lower() == 'true' """
     project = Projects.query.get_or_404(id)
     project.title = request.json['title']
     project.category = request.json['category']
+    project.about = request.json['about']
     project.description = request.json['description']
-    project.goal = request.json['goal']
+    project.goal_amount = request.json['goal_amount']
     project.duration = request.json['duration']
+    project.is_valid = request.json['is_valid']
     db.session.commit()
     return jsonify({'message' : 'update success'}), 200
 

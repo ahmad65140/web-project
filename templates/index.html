@@ -42,7 +42,7 @@
             <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('explore')}}">Explore</a>
+            <a class="nav-link" href="{{url_for('explore',criteria='')}}">Explore</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('contact')}}">Contact</a>
@@ -52,10 +52,10 @@
               Categories
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Health and Medical Expenses</a></li>
-              <li><a class="dropdown-item" href="#">Education</a></li>
-              <li><a class="dropdown-item" href="#">Disability Rights</a></li>
-              <li><a class="dropdown-item" href="#">Environmental Conservation</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='health')}}">Health and Medical Expenses</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='education')}}">Education</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='disability')}}">Disability Rights</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='environment')}}">Environmental Conservation</a></li>
             </ul>
           </li>
         
@@ -95,7 +95,7 @@
       <div class="container" >
         <h1>Welcome to </h1><h1 class="applyOrange">BackTheCause</h1>
         <p>Support innovative projects and make your ideas come to life.</p>
-        <a href="{{url_for('explore')}}" class="btn">Explore Projects</a>
+        <a href="{{url_for('explore',criteria='')}}" class="btn">Explore Projects</a>
       </div>
     </section>
 
@@ -236,17 +236,17 @@
           <h3 class="applyMechsuit applyOrange">Discover</h3>
           <ul>
             <li><a href="{{url_for('index')}}">Home</a></li>
-            <li><a href="{{url_for('explore')}}">Explore</a></li>
+            <li><a href="{{url_for('explore',criteria='')}}">Explore</a></li>
             <li><a href="{{url_for('contact')}}">Contact</a></li>
           </ul>
         </div>
         <div class="footer-section">
           <h3 class="applyMechsuit applyOrange">Categories</h3>
           <ul>
-            <li><a href="#">Health and Medical Expenses</a></li>
-            <li><a href="#">Education</a></li>
-            <li><a href="#">Disability Rights</a></li>
-            <li><a href="#">Environmental Conservation</a></li>
+            <li><a href="{{url_for('explore',criteria='health',sort='newest') }}">Health and Medical Expenses</a></li>
+            <li><a href="{{url_for('explore',criteria='education',sort='newest') }}">Education</a></li>
+            <li><a href="{{url_for('explore',criteria='disability',sort='newest') }}">Disability Rights</a></li>
+            <li><a href="{{url_for('explore',criteria='environment',sort='newest') }}">Environmental Conservation</a></li>
           </ul>
         </div>
       </div>

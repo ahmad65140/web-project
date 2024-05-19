@@ -38,10 +38,10 @@
               Categories
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Health and Medical Expenses</a></li>
-              <li><a class="dropdown-item" href="#">Education</a></li>
-              <li><a class="dropdown-item" href="#">Disability Rights</a></li>
-              <li><a class="dropdown-item" href="#">Environmental Conservation</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='health')}}">Health and Medical Expenses</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='education')}}">Education</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='disability')}}">Disability Rights</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='environment')}}">Environmental Conservation</a></li>
             </ul>
           </li>
           {% if not logging_btns %}
@@ -79,7 +79,7 @@
             </div>
             <div class="project-info">
               <h1>{{ project.title }}</h1>
-              <p>{{ project.about }}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{{ project.about }}</p>
               <div class="project-stats">
                 <span class="goal">Goal: ${{ project.goal_amount }}</span>
                 <span class="pledged">Pledged: ${{ project.pledged_amount }}</span>
@@ -95,22 +95,27 @@
           </div>
           <div class="project-content">
             <h2>About This Project</h2>
-            <p>{{ project.description }}</p>
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;{{ project.description }}</pre>
 
             {% if project.video_url %}
-            <div>
-              <video controls="controls">
-                <source src="{{ project.video_url }}" type="video/mp4">
-                <source src="movie.ogg" type="video/ogg">
-                Your browser does not support the <video> element.
-              </video>
+            <hr>
+            <div >
+              <h2>Video</h2>
+              <div class="textAlign">
+                <video controls="controls" >
+                  <source src="/static/vid/{{ project.video_url }}" type="video/mp4">
+                  <source src="movie.ogg" type="video/ogg">
+                  Your browser does not support the <video> element.
+                </video>
+              </div>
             </div>
             {% endif %}
           </div>
 
 
-          <hr>
+          
           {% if comments %}
+          <hr>
           <div class="comments">
             <h2>Comments</h2>
             {% for comment in comments %}
@@ -159,10 +164,10 @@
         <div class="footer-section">
           <h3 class="applyMechsuit applyOrange">Categories</h3>
           <ul>
-            <li><a href="#">Health and Medical Expenses</a></li>
-            <li><a href="#">Education</a></li>
-            <li><a href="#">Disability Rights</a></li>
-            <li><a href="#">Environmental Conservation</a></li>
+            <li><a href="{{url_for('explore',criteria='health',sort='newest') }}">Health and Medical Expenses</a></li>
+            <li><a href="{{url_for('explore',criteria='education',sort='newest') }}">Education</a></li>
+            <li><a href="{{url_for('explore',criteria='disability',sort='newest') }}">Disability Rights</a></li>
+            <li><a href="{{url_for('explore',criteria='environment',sort='newest') }}">Environmental Conservation</a></li>
           </ul>
         </div>
       </div>

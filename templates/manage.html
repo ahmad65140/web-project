@@ -48,10 +48,10 @@
               Categories
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Health and Medical Expenses</a></li>
-              <li><a class="dropdown-item" href="#">Education</a></li>
-              <li><a class="dropdown-item" href="#">Disability Rights</a></li>
-              <li><a class="dropdown-item" href="#">Environmental Conservation</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='health')}}">Health and Medical Expenses</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='education')}}">Education</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='disability')}}">Disability Rights</a></li>
+              <li><a class="dropdown-item" href="{{url_for('explore', criteria='environment')}}">Environmental Conservation</a></li>
             </ul>
           </li>
           {% if not logging_btns %}
@@ -184,7 +184,7 @@
             <tr>
               <th>Title</th>
               <th>Category</th>
-              <th>Description</th>
+              <th>About</th>
               <th>Funding Goal</th>
               <th>Pledged Amount</th>
               <th>Valid</th>
@@ -210,7 +210,7 @@
               columns: [
                 { data: 'title' },
                 { data: 'category' },
-                { data: 'description' },
+                { data: 'about' },
                 { data: 'goal_amount' },
                 { data: 'pledged_amount' },
                 { data: 'is_valid' },

@@ -20,9 +20,9 @@ description = ""  # Initialize description variable
 
 
 
-@app.route("/api/geminiAPI/<string:message>", methods=["GET","POST"])
-def chat(message):
-    message="summarize this:boys in need"
+@app.route("/api/geminiAPI/<string:discription>", methods=["GET","POST"])
+def chat(discription):
+    message="summarize this in one sentence : "+discription
 
 
     # Configure the model using the retrieved API key
