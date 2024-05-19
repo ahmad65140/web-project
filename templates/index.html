@@ -102,42 +102,12 @@
     <section class="featured" id="index-featured">
       <div class="container">
         <h2>Featured Projects</h2>
-        <!-- <div class="project-grid">
-          Featured Project cards go here -->
-          <!-- <div class="project-card">
-            <img src="img/Sustainable Fashion Line img.jpeg" alt="Sustainable Fashion Line">
-            <div class="content">
-              <h3>Sustainable Fashion Line</h3>
-              <p>Introducing a new sustainable fashion line that combines style and eco-friendliness...</p>
-              <div class="project-stats">
-                <span>Goal: $50,000</span>
-                <span>Pledged: $28,000</span>
-                <span>Backers: 620</span>
-                <span>Duration: 30 days</span>
-              </div>
-              <div class="project-progress">
-                <div class="progress-bar" style="width: 56%;"></div>
-              </div>
-              <a href="#" class="btn btn-primary">Back This Project</a>
-            </div>
-          </div> 
-        
-            </div>-->
-            <!-- <section class="feature-image">
-            <img src="img/graduate.avif" />
-            <img src="img/12plantindoorsmartgarden.webp" />
-            <img src="img/wheelchair person.jpg" />
-            <img src="img/Sustainable Fashion Line img.jpeg" />
-            </section> -->
 
             <section class="feature-image">
               {% for project in projects %}
                 <a href="{{url_for('about', id=project.id)}}"><img src="../static/img/{{project.image_url}}" /></a>
               {% endfor %}
             </section>
-
-
-          
 
 
 

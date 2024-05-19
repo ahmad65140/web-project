@@ -104,128 +104,6 @@
             <h2>Featured Projects</h2>
             <div class="project-grid">
 
-
-
-<!--                                  STATIC PROJECTS FIRST ADDED!!!!!!!!
-  
-  
-        <div class="project-card">
-                <img src="../img/Smart Garden System img.jpeg" alt="Smart Garden System">
-                <div class="content">
-                  <h3>Smart Garden System</h3>
-                  <p>Introducing a revolutionary smart garden system that makes gardening effortless and efficient...</p>
-                  <div class="project-stats">
-                    <span>Goal: $75,000</span>
-                    <span>Pledged: $42,500</span>
-                    <span>Backers: 785</span>
-                    <span>Duration: 45 days</span>
-                  </div>
-                  <div class="project-progress">
-                    <div class="progress-bar" style="width: 56.67%;"></div>
-                  </div>
-                  <a href="#" class="btn btn-primary">Back This Project</a>
-                </div>
-              </div>
-          
-
-
-              <div class="project-card">
-                <img src="../img/Sustainable Fashion Line img.jpeg" alt="Sustainable Fashion Line">
-                <div class="content">
-                  <h3>Sustainable Fashion Line</h3>
-                  <p>Introducing a new sustainable fashion line that combines style and eco-friendliness while saving the planet...</p>
-                  <div class="project-stats">
-                    <span>Goal: $50,000</span>
-                    <span>Pledged: $28,000</span>
-                    <span>Backers: 620</span>
-                    <span>Duration: 30 days</span>
-                  </div>
-                  <div class="project-progress">
-                    <div class="progress-bar" style="width: 56%;"></div>
-                  </div>
-                  <a href="#" class="btn btn-primary">Back This Project</a>
-                </div>
-              </div>
-
-
-              <div class="project-card">
-                <img src="../img/wheelchair person.jpg" alt="Disabled person">
-                <div class="content">
-                  <h3>Surgery for Disabled</h3>
-                  <p>With a new hope for being able to walk again,Jack is not missing a workout and is asking for your help to do the Surgery.</p>
-                  <div class="project-stats">
-                    <span>Goal: $20,000</span>
-                    <span>Pledged: $17,530</span>
-                    <span>Backers: 43</span>
-                    <span>Duration: 23 days</span>
-                  </div>
-                  <div class="project-progress">
-                    <div class="progress-bar" style="width: 87.65%;"></div>
-                  </div>
-                  <a href="#" class="btn btn-primary">Back This Project</a>
-                </div>
-              </div>
-
-
-
-              <div class="project-card">
-                <img src="../img/grandma-pexels-photo-432722-820x500.jpeg" alt="Elderly person">
-                <div class="content">
-                  <h3>Heart Surgery for Amelia Jones</h3>  
-                  <p>Amelia Jones, a beloved grandmother, needs a heart surgery to improve her quality of life. We're raising funds to help cover the costs.</p> 
-                   <div class="project-stats">
-                    <span>Goal: $50,000</span>  
-                    <span>Pledged: $12,345</span>  
-                    <span>Backers: 37</span> 
-                    <span>Duration: 15 Days</span> 
-                   </div>
-                  <div class="project-progress">
-                    <div class="progress-bar" style="width: 24.68%;"></div>  </div>
-                  <a href="#" class="btn btn-primary">Back This Project</a>
-                </div>
-              </div>
-
-
-
-              <div class="project-card">
-                <img src="../img/msrobotics-12.jpg" alt="Student building a model">
-                <div class="content">
-                  <h3>Help Sarah Lee's Science Fair Project!</h3>
-                  <p>Sarah Lee, a passionate 10th grader at Central Valley High, is excited about robotics. To compete in the science fair, she needs your help raising funds for materials to build a line-following robot!</p>
-                  <div class="project-stats">
-                    <span>Goal: $300</span>
-                    <span>Pledged: $50</span>
-                    <span>Backers: 2</span>
-                    <span>Duration: 10 Days</span>
-                  </div>
-                  <div class="project-progress">
-                    <div class="progress-bar" style="width: 16.67%;"></div>
-                  </div>
-                  <a href="#" class="btn btn-primary">Back This Project</a>
-                </div>
-              </div> 
-              
-              
-          
-              <div class="project-card">
-                <img src="../img/graduate.avif" alt="Masters' Degree persuit">
-                <div class="content">
-                  <h3>Masters Degree Persuit</h3>
-                  <p>Chaining her dreams, Nawal is looking forward to get a masters degree in compters science ta AUB university, one of the worlds best in the field. </p>
-                  <div class="project-stats">
-                    <span>Goal: $40,000</span>
-                    <span>Pledged: $19,680</span>
-                    <span>Backers: 362</span>
-                    <span>Duration: 29 days</span>
-                  </div>
-                  <div class="project-progress">
-                    <div class="progress-bar" style="width: 49.2%;"></div>
-                  </div>
-                  <a href="#" class="btn btn-primary">Back This Project</a>
-                </div>
-              </div>
-            -->
-
             
             {% for project in projects %}
             
@@ -234,7 +112,7 @@
                 <div class="content">
                     <h3>{{ project.title }}</h3>
                     <div class="projectAbout">
-                      <p>{{ project.about }}</p>
+                      <p>&nbsp;&nbsp;{{ project.about }}</p>
                     </div>   
                     <div class="project-stats">
                         <span>Goal: ${{ project.goal_amount }}</span>
