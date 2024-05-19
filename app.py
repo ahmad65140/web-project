@@ -141,16 +141,6 @@ def update_project_validity():
 @app.route("/")
 def index():
     update_project_validity()
-    """ if current_user.is_authenticated and current_user.role=='admin':
-        show_admin_button = True
-    else:
-        show_admin_button = False
-
-    if current_user.is_authenticated:
-        logging_btns = True
-    else:
-        logging_btns = False """
-
 
     projects = Projects.query.order_by(desc(Projects.pledged_amount/Projects.goal_amount)).filter(Projects.is_valid).limit(4).all()
     return render_template('index.html',projects=projects,show_admin_button=function_show_admin_button(),logging_btns=function_logging_btns())
@@ -234,7 +224,6 @@ def contact():
         
         about = chat(description)
 
-        # Handle image upload
         if image_file:
             image_file = request.files['project-image']
             pic_filename = secure_filename(image_file.filename)
@@ -243,7 +232,6 @@ def contact():
             image_file = pic_name
             saver.save(os.path.join(app.config['UPLOAD_FOLDER'], pic_name))
 
-        # Handle video upload (add checks for allowed video formats)
         if video_file:
             video_file = request.files['project-video']
             video_filename = secure_filename(video_file.filename)
@@ -255,7 +243,6 @@ def contact():
         if not request.files['project-video']:
             video_file = ""
 
-        # Create and save project with image and video URLs (if uploaded)
         new_project = Projects(title=project_name, category=category, description=description,about=about, goal_amount=goal_amount, duration=duration, image_url=image_file, video_url=video_file, user_id=current_user.id)
         db.session.add(new_project)
         db.session.commit()
@@ -434,11 +421,7 @@ def update_project(id):
 
 @app.route('/api/projects/<int:id>', methods=['PUT'])
 def updateproject(id):
-    """ is_valid = request.form.get('is_valid')
-    if is_valid is None:
-        is_valid = False
-    else:
-        is_valid = is_valid.lower() == 'true' """
+
     project = Projects.query.get_or_404(id)
     project.title = request.json['title']
     project.category = request.json['category']
@@ -472,7 +455,7 @@ def delete_comment(id):
 
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0', port=5000,debug=True)
+    """ app.run(host='0.0.0.0', port=5000,debug=True) """
 
-    """ app.run(debug=True) """
+    app.run(debug=True)
 

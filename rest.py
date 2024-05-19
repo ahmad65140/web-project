@@ -16,11 +16,11 @@ class Projects(db.Model):
             "about": self.about,
             "image_url": self.image_url,
             "video_url": self.video_url,
-            "goal_amount": str(self.goal_amount),  # Convert decimal to string
-            "pledged_amount": str(self.pledged_amount),  # Convert decimal to string
+            "goal_amount": str(self.goal_amount),  
+            "pledged_amount": str(self.pledged_amount),  
             "backer_count": self.backer_count,
             "category": self.category,
-            "date_added": self.date_added.isoformat(),  # Convert datetime to ISO format
+            "date_added": self.date_added.isoformat(),  
             "duration": self.duration,
             "is_valid": self.is_valid,
             "user_id": self.user_id,
