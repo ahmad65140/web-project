@@ -17,7 +17,7 @@ import os
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1982Aa2003@localhost/crowdfunding_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:********@localhost/crowdfunding_db'
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Recommended for performance
 app.config['UPLOAD_FOLDER'] = 'static/img'
 app.config['VIDEO_UPLOAD_FOLDER'] = 'static/vid'
